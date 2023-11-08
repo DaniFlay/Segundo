@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="nav_unicas" type="id" />
+    <item name="nav_permisos" type="id" />
+    <item name="nav_tareas" type="id" />
+    <item name="nav_ausencias" type="id" />
+    <item name="nav_calendario" type="id" />
+    <item name="nav_fijas" type="id" />
+    <item name="nav_micuenta" type="id" />
+    <item name="nav_cerrarSesion" type="id" />
+</resources>

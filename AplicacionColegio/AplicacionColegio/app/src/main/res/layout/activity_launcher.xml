@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LauncherActivity"
+    android:background="@color/janna">
+
+    <ImageView
+        android:id="@+id/iconoColegio"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/icono"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textoUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="90dp"
+        android:text="@string/usuario" />
+
+    <EditText
+        android:id="@+id/contentUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="left"
+        android:ems="17"
+        android:inputType="text"
+        tools:ignore="LabelFor,RtlHardcoded"
+        android:autofillHints="username" />
+
+    <TextView
+        android:id="@+id/textoContraseña"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/contraseña" />
+
+    <EditText
+        android:id="@+id/contentPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:ems="17"
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        tools:ignore="LabelFor" />
+    <TextView
+        android:id="@+id/textoPuesto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/puesto" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupPuestos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="30dp"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonJefe"
+            android:layout_gravity="center"
+            android:checked="false"
+            android:text="@string/jefe"
+            android:textAlignment="center"
+            android:textSize="12sp"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonCoordinador"
+            android:layout_gravity="center"
+            android:checked="false"
+            android:text="@string/coordinador"
+            android:textAlignment="center"
+            android:textSize="12sp"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonDocente"
+            android:layout_gravity="center"
+            android:checked="false"
+            android:text="@string/docente"
+            android:textAlignment="center"
+            android:textSize="12sp"/>
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/layoutBotones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/botonInicioSesion"
+            android:text="@string/inicio"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp">
+        </Button>
+        <Button
+            android:id="@+id/botonRegistro"
+            android:text="@string/registro"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp">
+        </Button>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/textoSeMeHaOlvidadoLaContraseña"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contraseñaOlvidada"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp">
+    </TextView>
+</LinearLayout>
