@@ -47,11 +47,11 @@ public class EstadosPermisosActivity extends AppCompatActivity {
     }
 
     private List<Permiso> getData() {
-        String permiso=  getIntent().getStringExtra("permiso");
+       Permiso p= getIntent().getParcelableExtra("permiso");
         permisos= new ArrayList<Permiso>();
 
-        if(permiso!=null){
-            permisos.add(new Permiso("pendiente",permiso));
+        if(p!=null){
+            permisos.add(p);
         }
 
         permisos.add(new Permiso("pendiente","Baja por paternidad"));

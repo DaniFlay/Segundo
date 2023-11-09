@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -89,6 +90,7 @@ public class NuevoPermiso extends AppCompatActivity implements  View.OnClickList
     public void onClick(View v) {
         p.setEstado("pendiente");
         p.setNombre(permiso);
+        Log.i("Permiso", p.getEstado()+" "+p.getNombre());
         if (!sp2.isActivated()) {
             new MaterialAlertDialogBuilder(NuevoPermiso.this)
                     .setMessage(R.string.rellenarPermiso)
@@ -96,7 +98,7 @@ public class NuevoPermiso extends AppCompatActivity implements  View.OnClickList
                     .show();
         } else  {
             Intent intent = new Intent(NuevoPermiso.this, EstadosPermisosActivity.class);
-            intent.putExtra("permiso", permiso);
+            intent.putExtra("permiso", p);
             startActivity(intent);
 
         }
