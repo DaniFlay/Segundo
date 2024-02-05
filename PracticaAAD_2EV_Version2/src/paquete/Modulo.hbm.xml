@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 5 feb 2024 13:20:42 by Hibernate Tools 6.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="fp" name="paquete.Modulo" optimistic-lock="none" table="modulo">
+        <id name="nombreCorto" type="string">
+            <column length="20" name="nombreCorto"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="paquete.Profesor" fetch="select" name="profesor">
+            <column length="9" name="dniProfesor"/>
+        </many-to-one>
+        <many-to-one class="paquete.Ciclo" fetch="select" name="ciclo">
+            <column length="3" name="ciclo"/>
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column length="50" name="nombre"/>
+        </property>
+        <property name="horasSemanales" type="java.lang.Integer">
+            <column name="horasSemanales"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="notas" table="nota">
+            <key>
+                <column length="20" name="nombreModulo" not-null="true"/>
+            </key>
+            <one-to-many class="paquete.Nota"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="matriculas" table="matricula">
+            <key>
+                <column length="20" name="nombreModulo" not-null="true"/>
+            </key>
+            <one-to-many class="paquete.Matricula"/>
+        </set>
+    </class>
+</hibernate-mapping>

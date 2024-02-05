@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 5 feb 2024 13:20:42 by Hibernate Tools 6.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="fp" name="paquete.Nota" optimistic-lock="none" table="nota">
+        <composite-id class="paquete.NotaId" name="id">
+            <key-property name="cursoAcademico" type="int">
+                <column name="cursoAcademico"/>
+            </key-property>
+            <key-property name="dniEstudiante" type="string">
+                <column length="9" name="dniEstudiante"/>
+            </key-property>
+            <key-property name="evaluacion" type="int">
+                <column name="evaluacion"/>
+            </key-property>
+            <key-property name="nombreCiclo" type="string">
+                <column length="3" name="nombreCiclo"/>
+            </key-property>
+            <key-property name="nombreModulo" type="string">
+                <column length="20" name="nombreModulo"/>
+            </key-property>
+            <key-property name="tipoNota" type="string">
+                <column length="20" name="tipoNota"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="paquete.Ciclo" fetch="select" insert="false" name="ciclo" update="false">
+            <column length="3" name="nombreCiclo" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="paquete.Alumno" fetch="select" insert="false" name="alumno" update="false">
+            <column length="9" name="dniEstudiante" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="paquete.Modulo" fetch="select" insert="false" name="modulo" update="false">
+            <column length="20" name="nombreModulo" not-null="true"/>
+        </many-to-one>
+        <property name="valorNumerico" type="java.lang.Double">
+            <column name="valorNumerico" precision="22" scale="0"/>
+        </property>
+    </class>
+</hibernate-mapping>
