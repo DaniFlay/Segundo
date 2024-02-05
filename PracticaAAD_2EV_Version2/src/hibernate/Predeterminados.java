@@ -1,6 +1,7 @@
 package hibernate;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -114,7 +115,75 @@ public class Predeterminados {
 			nota= (Nota) session.get(Nota.class, q);
 			System.out.println(nota.toString());
 		}
+		transaction.commit();
+		
+	}
+	public void nuevoProfesor(String dni,String nombre, String apellidos,String especialidad,Set modulos ) {
+		SessionFactory sessionFactory= HibernateUtil.getSessionFactory();
+		Session session= sessionFactory.openSession();
+		Transaction transaction= session.beginTransaction();
+		Profesor p= new Profesor(dni,nombre,apellidos, especialidad,modulos);
+		session.save(p);
+		ArrayList<Modulo> list= new ArrayList<Modulo>();
+		list.addAll(modulos);
+		for(Modulo m: list) {
+			m.setProfesor(p);
+			session.saveOrUpdate(m);
+		}
+		transaction.commit();
+	}
+	public void nuevoAlumno(String dni, String nombre, String apellidos,Integer edad,Set notas, Set matriculas) {
+		ArrayList<Nota> notasList= new ArrayList<Nota>();
+		ArrayList<Matricula> matriculasList= new ArrayList<Matricula>();
+		notasList.addAll(notas);
+		matriculasList.addAll(matriculas);
+		Alumno alumno = new Alumno(dni,nombre,apellidos,edad,notas,matriculas );
+		SessionFactory sessionFactory= HibernateUtil.getSessionFactory();
+		Session session= sessionFactory.openSession();
+		Transaction transaction= session.beginTransaction();
+		session.save(alumno);
+		for(Nota n: notasList) {
+			n.setAlumno(alumno);
+			session.saveOrUpdate(n);
+		}
+		for(Matricula m:matriculasList) {
+			m.setAlumno(alumno);
+			session.saveOrUpdate(m);
+		}
+		transaction.commit();
+		
+	}
+	public void nuevoCiclo(String abreviatura,String nombreCompleto, Integer cursos, Set notas, Set modulos, Set matriculas) {
+		ArrayList<Nota> notasList= new ArrayList<Nota>();
+		ArrayList<Matricula> matriculasList= new ArrayList<Matricula>();
+		ArrayList<Modulo> modulosList= new ArrayList<Modulo>();
+		notasList.addAll(notas);
+		matriculasList.addAll(matriculas);
+		modulosList.addAll(modulos);
+		Ciclo ciclo= new Ciclo(abreviatura, nombreCompleto, cursos, notas, modulos, matriculas) ;
+		SessionFactory sessionFactory= HibernateUtil.getSessionFactory();
+		Session session= sessionFactory.openSession();
+		Transaction transaction= session.beginTransaction();
+		session.save(ciclo);
+		for(Nota n: notasList) {
+			n.setCiclo(ciclo);
+			session.saveOrUpdate(n);
+		}
+		for(Matricula m:matriculasList) {
+			m.setCiclo(ciclo);
+			session.saveOrUpdate(m);
+		}
+		for(Modulo mod: modulosList) {
+			mod.setCiclo(ciclo);
+			session.saveOrUpdate(mod);
+		}
+		transaction.commit();
 		
 	}
 	
+	
 }
+
+
+
+

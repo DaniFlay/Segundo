@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generated 5 feb 2024 13:20:42 by Hibernate Tools 6.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
@@ -32,3 +33,39 @@
         </set>
     </class>
 </hibernate-mapping>
+=======
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 5 feb 2024 13:20:42 by Hibernate Tools 6.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="fp" name="paquete.Ciclo" optimistic-lock="none" table="ciclo">
+        <id name="abreviatura" type="string">
+            <column length="3" name="abreviatura"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="nombreCompleto" type="string">
+            <column length="30" name="nombreCompleto"/>
+        </property>
+        <property name="cursos" type="java.lang.Integer">
+            <column name="cursos"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="notas" table="nota">
+            <key>
+                <column length="3" name="nombreCiclo" not-null="true"/>
+            </key>
+            <one-to-many class="paquete.Nota"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="modulos" table="modulo">
+            <key>
+                <column length="3" name="ciclo"/>
+            </key>
+            <one-to-many class="paquete.Modulo"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="matriculas" table="matricula">
+            <key>
+                <column length="3" name="nombreCiclo" not-null="true"/>
+            </key>
+            <one-to-many class="paquete.Matricula"/>
+        </set>
+    </class>
+</hibernate-mapping>
+>>>>>>> 460453a6d22fa10ff63930873d2083bb65203484

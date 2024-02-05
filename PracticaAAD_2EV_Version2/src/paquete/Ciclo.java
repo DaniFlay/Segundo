@@ -1,3 +1,4 @@
+
 package paquete;
 // Generated 5 feb 2024 13:20:42 by Hibernate Tools 6.3.1.Final
 

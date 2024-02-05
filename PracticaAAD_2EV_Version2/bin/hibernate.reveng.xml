@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
@@ -9,4 +10,17 @@
   <table-filter match-catalog="fp" match-name="modulo"/>
   <table-filter match-catalog="fp" match-name="nota"/>
   <table-filter match-catalog="fp" match-name="profesor"/>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-schema="fp" match-name=".*"/>
+  <table-filter match-catalog="fp" match-name="alumno"/>
+  <table-filter match-catalog="fp" match-name="ciclo"/>
+  <table-filter match-catalog="fp" match-name="matricula"/>
+  <table-filter match-catalog="fp" match-name="modulo"/>
+  <table-filter match-catalog="fp" match-name="nota"/>
+  <table-filter match-catalog="fp" match-name="profesor"/>
+>>>>>>> 460453a6d22fa10ff63930873d2083bb65203484
 </hibernate-reverse-engineering>
