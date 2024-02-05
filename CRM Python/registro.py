@@ -15,11 +15,11 @@ class Ui_Dialog(object):
             cur.execute("create table if not exists empresa(nombreEmpresa varchar(50) primary key, telefono varchar(10), correo varchar(40),pais varchar(20), password varchar(40))")
             nuevaEmpresa= [(empresa, telefono, correo, pais,password)]
             cur.execute("insert into empresa values (?,?,?,?,?)", nuevaEmpresa[0])
-            cur.execute("create table if not exists oportunidades( contacto varchar(100), oportunidad varchar(100) primary key, correo varchar(50), telefono varchar(15),ingresoEsperado double, tipo varchar(20))")
-            cur.execute("create table if not exists contactos( nombre varchar(50), direccion varchar(100),nif varchar(30), telefono varchar(15), correo varchar(50), tipo varchar(10), web varchar(80))")
-            cur.execute("create table if not exists inventario( nombre varchar(100), cantidad integer, precio double, primary key(nombre))")
-            cur.execute("create table if not exists pedidos( contacto varchar(50), producto varchar(100), cantidad integer, fecha varchar(10), foreign key(contacto) references contactos(nombre), foreign key(producto) references productos(nombre))")
-            cur.execute("create table if not exists presupuestos( presupuesto varchar(50), contacto varchar(50), total double,fecha varchar(10), foreign key (contacto) references contactos(nombre), foreign key(fecha) references pedidos(fecha))")
+            cur.execute("create table if not exists contactos( nombre varchar(50),direccion varchar(300),contacto varchar(30), telefono varchar(15), correo varchar(50), IVA double)")
+            cur.execute("create table if not exists oportunidades( contacto integer, oportunidad varchar(100),presupuesto integer, correo varchar(50), telefono varchar(15),ingresoEsperado double, tipo varchar(20), foreign key(contacto)references contactos(id), foreign key (presupuesto)references presupuestos(id))")
+            cur.execute("create table if not exists inventario( nombre varchar(100), cantidad integer,descripcion varchar(500), precio double)")
+            cur.execute("create table if not exists pedidos(id varchar(50) primary key, contacto integer, producto integer, cantidad integer, fecha varchar(10),precio double, foreign key(contacto) references contactos(id), foreign key(producto) references productos(id))")
+            cur.execute("create table if not exists presupuestos( presupuesto varchar(50), contacto integer,pedido integer, total double,fecha varchar(10),foreign key (presupuesto) references presupuestos(id), foreign key (contacto) references contactos(id), foreign key(fecha) references pedidos(fecha))")
             con.commit()
             con.close()
         except Exception as a:

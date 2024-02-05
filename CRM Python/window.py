@@ -1,6 +1,7 @@
 
 import sqlite3
 from PyQt5 import *
+from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import *
 
 class Ui_Login(object):
@@ -17,6 +18,7 @@ class Ui_Login(object):
         self.ui.inventarioButton.clicked.connect(self.window.close)
         self.ui.pedidosButton.clicked.connect(self.window.close)
         self.ui.presupuestosButton.clicked.connect(self.window.close)
+        self.ui.actionSalir.triggered.connect(self.window.close)
     def abrirRegistro(self):
         from registro import Ui_Dialog
         self.window= QtWidgets.QDialog()
@@ -25,7 +27,7 @@ class Ui_Login(object):
         self.window.show()
         Login.hide()
         self.ui.pushButton.clicked.connect(self.window.close)
-    def buscarLogin(self,nombre, password):
+    def buscarLogin(self,nombre,correo, password):
         try:
             con = sqlite3.connect("BaseDeDatosEmpresas")
             cur= con.cursor()
@@ -39,12 +41,12 @@ class Ui_Login(object):
                 msgBox.setIcon(QMessageBox.Critical)
                 msgBox.exec()
             else:
-                datos=[(nombre,password)]
-                cur.execute("select * from empresas where nombreEmpresa=? and password=?",datos[0])
+                datos=[(nombre,correo,password)]
+                cur.execute("select * from empresas where nombreEmpresa=? and correo=? and password=?",datos[0])
                 empresa= cur.fetchone()
                 if(empresa==None):
                     msgBox = QMessageBox()
-                    msgBox.setText("La contraseña introducida no es correcta")
+                    msgBox.setText("Los datos introducidos no son correctos")
                     msgBox.setWindowTitle("Error")
                     msgBox.setIcon(QMessageBox.Critical)
                     msgBox.exec()
@@ -77,7 +79,7 @@ class Ui_Login(object):
         self.lineEdit_3.setGeometry(QtCore.QRect(140, 140, 191, 20))
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_3.setEchoMode(QLineEdit.EchoMode.Password)
-        self.entrar = QtWidgets.QPushButton(Login, clicked= lambda: self.buscarLogin(self.lineEdit.text(), self.lineEdit_3.text()))
+        self.entrar = QtWidgets.QPushButton(Login, clicked= lambda: self.buscarLogin(self.lineEdit.text(),self.lineEdit_2, self.lineEdit_3.text()))
         self.entrar.setGeometry(QtCore.QRect(80, 220, 75, 23))
         self.entrar.setObjectName("entrar")
         self.registro = QtWidgets.QPushButton(Login,clicked= lambda: self.abrirRegistro())

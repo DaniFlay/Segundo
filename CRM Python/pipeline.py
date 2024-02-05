@@ -4,58 +4,89 @@ import sqlite3
 from MainWindow import *
 
 class Ui_Pipeline(object):
-    def editar(self,nombre,oportunidad):
-        from editar import Ui_Dialog
+    def elegirNuevo(self, index):
+        item= self.listNuevo.model().data(index)
+        self.cur.execute("select * from oportunidades where oportunidad= ?",(item,))
+        oportunidad= self.cur.fetchone()
+        from oportunidad import Ui_Dialog
         self.window= QtWidgets.QDialog()
-        self.ui= Ui_Dialog
-        self.ui.setupUi(self.window, nombre,oportunidad)
+        self.ui= Ui_Dialog()
+        self.ui.setupUi(self.window,oportunidad,self.bbdd)
         self.window.show()
+        self.ui.buttonGuardar.clicked.connect(self.window.close)
+        self.ui.buttonCancelar.clicked.connect(self.window.close)
+    def elegirCalificado(self, index):
+        item= self.listCalificado.model().data(index)
+        self.cur.execute("select * from oportunidades where oportunidad= ?",(item,))
+        oportunidad= self.cur.fetchone()
+        from oportunidad import Ui_Dialog
+        self.window= QtWidgets.QDialog()
+        self.ui= Ui_Dialog()
+        self.ui.setupUi(self.window,oportunidad,self.bbdd)
+        self.window.show()
+        self.ui.buttonGuardar.clicked.connect(self.window.close)
+        self.ui.buttonCancelar.clicked.connect(self.window.close)
+    def elegirPropuesta(self, index):
+        item= self.listPropuesta.model().data(index)
+        self.cur.execute("select * from oportunidades where oportunidad= ?",(item,))
+        oportunidad= self.cur.fetchone()
+        from oportunidad import Ui_Dialog
+        self.window= QtWidgets.QDialog()
+        self.ui= Ui_Dialog()
+        self.ui.setupUi(self.window,oportunidad,self.bbdd)
+        self.window.show()
+        self.ui.buttonGuardar.clicked.connect(self.window.close)
+        self.ui.buttonCancelar.clicked.connect(self.window.close)
+    def elegirGanado(self, index):
+        item= self.listGanado.model().data(index)
+        self.cur.execute("select * from oportunidades where oportunidad= ?",(item,))
+        oportunidad= self.cur.fetchone()
+        from oportunidad import Ui_Dialog
+        self.window= QtWidgets.QDialog()
+        self.ui= Ui_Dialog()
+        self.ui.setupUi(self.window,oportunidad,self.bbdd)
+        self.window.show()
+        self.ui.buttonGuardar.clicked.connect(self.window.close)
+        self.ui.buttonCancelar.clicked.connect(self.window.close)
+        
     def nuevaOportunidad(self, nombre):
-        from nuevaOportunidad import Ui_Dialog
+        from nuevaOportunidad2 import Ui_Dialog
         self.window= QtWidgets.QDialog()
         self.ui= Ui_Dialog()
         self.ui.setupUi(self.window,nombre)
         self.window.show()
         self.ui.buttonAgregar.clicked.connect(self.window.close)
+        self.ui.buttonExistente.clicked.connect(self.window.close)
+        self.ui.buttonNuevo.clicked.connect(self.window.close)
     def atras(self, nombre):
         from MainWindow import Ui_MainWindow
         self.window= QtWidgets.QMainWindow()
         self.ui= Ui_MainWindow()
         self.ui.setupUi(self.window, nombre)
         self.window.show()
+        self.con.close()
         self.ui.salidaButton.clicked.connect(self.window.close)
         self.ui.oportunidadesButton.clicked.connect(self.window.close)
         self.ui.contactosButton.clicked.connect(self.window.close)
         self.ui.inventarioButton.clicked.connect(self.window.close)
         self.ui.pedidosButton.clicked.connect(self.window.close)
         self.ui.presupuestosButton.clicked.connect(self.window.close)
-    def nuevos(self, empresa):
-        bbdd= "BaseDeDatos"+empresa
-        con = sqlite3.connect(bbdd)
-        cur = con.cursor()
-        cur.execute("select oportunidad from oportunidades where tipo = 'nuevo' collate nocase")
-        oportunidades= cur.fetchall()
+    def nuevos(self):
+        
+        self.cur.execute("select oportunidad from oportunidades where tipo = 'nuevo' collate nocase")
+        oportunidades= self.cur.fetchall()
         return oportunidades
-    def calificados(self, empresa):
-        bbdd= "BaseDeDatos"+empresa
-        con = sqlite3.connect(bbdd)
-        cur = con.cursor()
-        cur.execute("select oportunidad from oportunidades where tipo='calificado' collate nocase")
-        oportunidades= cur.fetchall()
+    def calificados(self):
+        self.cur.execute("select oportunidad from oportunidades where tipo='calificado' collate nocase")
+        oportunidades= self.cur.fetchall()
         return oportunidades
-    def propuestas(self, empresa):
-        bbdd= "BaseDeDatos"+empresa
-        con = sqlite3.connect(bbdd)
-        cur = con.cursor()
-        cur.execute("select oportunidad from oportunidades where tipo='propuesta' collate nocase")
-        oportunidades= cur.fetchall()
+    def propuestas(self):
+        self.cur.execute("select oportunidad from oportunidades where tipo='propuesta' collate nocase")
+        oportunidades= self.cur.fetchall()
         return oportunidades
-    def ganados(self, empresa):
-        bbdd= "BaseDeDatos"+empresa
-        con = sqlite3.connect(bbdd)
-        cur = con.cursor()
-        cur.execute("select oportunidad from oportunidades where tipo= 'ganado' collate nocase")
-        oportunidades= cur.fetchall()
+    def ganados(self):
+        self.cur.execute("select oportunidad from oportunidades where tipo= 'ganado' collate nocase")
+        oportunidades= self.cur.fetchall()
         return oportunidades
     def setupUi(self, MainWindow,nombre):
         MainWindow.setObjectName("MainWindow")
@@ -64,6 +95,9 @@ class Ui_Pipeline(object):
         modeloCalificados= QtGui.QStandardItemModel()
         modeloPropuestas= QtGui.QStandardItemModel()
         modeloGanados= QtGui.QStandardItemModel()
+        self.bbdd= nombre
+        self.con = sqlite3.connect("BaseDeDatos"+nombre)
+        self.cur = self.con.cursor()
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.buttonAtras = QtWidgets.QPushButton(self.centralwidget, clicked=lambda: self.atras(nombre))
@@ -95,29 +129,32 @@ class Ui_Pipeline(object):
         self.listNuevo.setGeometry(QtCore.QRect(20, 140, 181, 401))
         self.listNuevo.setObjectName("listNuevo")
         self.listNuevo.setModel(modeloNuevos)
-        self.listNuevo.clicked.connect(self.editar(nombre,i[0]))
-        for i in self.nuevos(nombre):
+        self.listNuevo.clicked.connect(self.elegirNuevo)
+        for i in self.nuevos():
             item = QtGui.QStandardItem(i[0])
             modeloNuevos.appendRow(item)
         self.listCalificado = QtWidgets.QListView(self.centralwidget)
         self.listCalificado.setGeometry(QtCore.QRect(240, 140, 181, 401))
         self.listCalificado.setObjectName("listCalificado")
         self.listCalificado.setModel(modeloCalificados)
-        for i in self.calificados(nombre):
+        self.listCalificado.clicked.connect(self.elegirCalificado)
+        for i in self.calificados():
             item = QtGui.QStandardItem(i[0])
             modeloCalificados.appendRow(item)
         self.listPropuesta = QtWidgets.QListView(self.centralwidget)
         self.listPropuesta.setGeometry(QtCore.QRect(460, 140, 181, 401))
         self.listPropuesta.setObjectName("listPropuesta")
         self.listPropuesta.setModel(modeloPropuestas)
-        for i in self.propuestas(nombre):
+        self.listPropuesta.clicked.connect(self.elegirPropuesta)
+        for i in self.propuestas():
             item = QtGui.QStandardItem(i[0])
             modeloPropuestas.appendRow(item)
         self.listGanado = QtWidgets.QListView(self.centralwidget)
         self.listGanado.setGeometry(QtCore.QRect(680, 140, 181, 401))
         self.listGanado.setObjectName("listGanado")
         self.listGanado.setModel(modeloGanados)
-        for i in self.ganados(nombre):
+        self.listGanado.clicked.connect(self.elegirGanado)
+        for i in self.ganados():
             item= QtGui.QStandardItem(i[0])
             modeloGanados.appendRow(item)
         self.labelNuevo = QtWidgets.QLabel(self.centralwidget)

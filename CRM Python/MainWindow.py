@@ -1,17 +1,28 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-from pipeline import *
 
 
 class Ui_MainWindow(object):
+    def abrirContactos(self,nombre):
+        from elegirCon import Ui_Dialog
+        self.window= QtWidgets.QDialog()
+        self.ui= Ui_Dialog()
+        self.ui.setupUi(self.window,nombre,True)
+        self.window.show()
+        self.ui.listContactos.clicked.connect(self.window.close)
     def abrirPipeline(self, nombre):
+        from pipeline import Ui_Pipeline
         self.window= QtWidgets.QMainWindow()
         self.ui= Ui_Pipeline()
         self.ui.setupUi(self.window,nombre)
         self.window.show()
         self.ui.buttonAtras.clicked.connect(self.window.close)
         self.ui.buttonNuevo.clicked.connect(self.window.close)
+        self.ui.listCalificado.clicked.connect(self.window.close)
+        self.ui.listGanado.clicked.connect(self.window.close)
+        self.ui.listNuevo.clicked.connect(self.window.close)
+        self.ui.listPropuesta.clicked.connect(self.window.close)
     def salir(self):
         from window import Ui_Login
         self.window= QtWidgets.QDialog()
@@ -33,7 +44,7 @@ class Ui_MainWindow(object):
         self.oportunidadesButton.setIcon(icon)
         self.oportunidadesButton.setIconSize(QtCore.QSize(91, 81))
         self.oportunidadesButton.setObjectName("oportunidadesButton")
-        self.contactosButton = QtWidgets.QPushButton(self.centralwidget)
+        self.contactosButton = QtWidgets.QPushButton(MainWindow, clicked=lambda:self.abrirContactos(nombre))
         self.contactosButton.setGeometry(QtCore.QRect(320, 100, 91, 81))
         self.contactosButton.setText("")
         icon1 = QtGui.QIcon()
@@ -125,10 +136,20 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 762, 21))
         self.menubar.setObjectName("menubar")
+        self.menuCuenta = QtWidgets.QMenu(self.menubar)
+        self.menuCuenta.setObjectName("menuCuenta")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.actionEditar = QtWidgets.QAction(MainWindow)
+        self.actionEditar.setObjectName("actionEditar")
+        self.actionSalir = QtWidgets.QAction(MainWindow)
+        self.actionSalir.setObjectName("actionSalir")
+        self.actionSalir.triggered.connect(self.salir)
+        self.menuCuenta.addAction(self.actionEditar)
+        self.menuCuenta.addAction(self.actionSalir)
+        self.menubar.addAction(self.menuCuenta.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -142,6 +163,9 @@ class Ui_MainWindow(object):
         self.labelPedidos.setText(_translate("MainWindow", "Pedidos"))
         self.labelInventario.setText(_translate("MainWindow", "Inventario"))
         self.labelSalir.setText(_translate("MainWindow", "Salir"))
+        self.menuCuenta.setTitle(_translate("MainWindow", "Cuenta"))
+        self.actionEditar.setText(_translate("MainWindow", "Editar"))
+        self.actionSalir.setText(_translate("MainWindow", "Salir"))
 
 
 if __name__ == "__main__":
