@@ -1,0 +1,41 @@
+RECYLCER VIEW:
+    ->JAVA:
+        ->Encapsulador:
+            -> Clase
+            -> Constructor
+            -> Getters and setters
+        ->Adaptador:
+            -extends RecyclerView.Adapter:
+                -Context
+                -Lista
+                -layout_id
+                -onClickListener
+            -Constructor
+            -public void onClickListener
+            -ViewHolder:
+                -Atributos(xml)
+                -public ViewHolder(atributos de los items en xml)
+            -representacion(setteo con el encapsulador)
+            -Adaptador.ViewHolder onCreate:
+                -View = Layoutinflater.from(parent.getContext).inflate(item,parent,false)
+                -view.setonclicklistener
+                -return new ViewHolder(view)
+            -bind:
+                -encapsulador getItem
+                -holder.representacion(e)
+        ->Activity:
+            -rellenar la Lista
+            -crear Adaptador
+            -adaptador.onClickListener
+            -asignar RecyclerView
+            -recyclerview.setAdapter
+            -linearLayoutManager(this)
+            -recyclerview.setlayoutmanager
+
+    ->XML:
+        ->Layout:
+            ->Constraint layout (mp,mp)
+            ->RecyclerView(mp,mp,vertical)
+        ->Item:
+            ->Linears
+            ->ImageView (scaleType: fitCenter)
